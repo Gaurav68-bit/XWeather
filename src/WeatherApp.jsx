@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Card, CardContent, Typography, TextField, Button, Grid } from "@mui/material";
 
 const WeatherApp = () => {
   const [city, setCity] = useState("");
@@ -27,33 +28,63 @@ const WeatherApp = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 p-4">
-      <div className="flex gap-2">
-        <input
-          type="text"
-          className="border p-2 rounded"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          placeholder="Enter city name"
-        />
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-          onClick={fetchWeather}
-        >
-          Search
-        </button>
-      </div>
-      {loading && <p>Loading data…</p>}
+    <div style={{ padding: "20px", textAlign: "center" }}>
+      <Card sx={{ maxWidth: 500, margin: "auto", padding: "20px" }}>
+        <CardContent>
+          <Grid container spacing={2} alignItems="center" justifyContent="center">
+            <Grid item xs={8}>
+              <TextField
+                fullWidth
+                label="Enter city name"
+                variant="outlined"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <Button variant="contained" color="primary" onClick={fetchWeather}>
+                Search
+              </Button>
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+      {loading && <Typography mt={2}>Loading data…</Typography>}
       {weather && (
-        <div className="weather-cards grid gap-4 p-4">
-          <div className="weather-card border p-4 rounded shadow">
-            <h2 className="text-xl font-bold">{weather.location.name}</h2>
-            <p>Temperature: {weather.current.temp_c}°C</p>
-            <p>Humidity: {weather.current.humidity}%</p>
-            <p>Condition: {weather.current.condition.text}</p>
-            <p>Wind Speed: {weather.current.wind_kph} kph</p>
-          </div>
-        </div>
+        <Grid container spacing={2} mt={3} justifyContent="center">
+          <Grid item className="weather-cards">
+            <Card className="weather-card" sx={{ minWidth: 200 }}>
+              <CardContent>
+                <Typography variant="h6">Temperature</Typography>
+                <Typography>{weather.current.temp_c}°C</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item>
+            <Card className="weather-card" sx={{ minWidth: 200 }}>
+              <CardContent>
+                <Typography variant="h6">Condition</Typography>
+                <Typography>{weather.current.condition.text}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item>
+            <Card className="weather-card" sx={{ minWidth: 200 }}>
+              <CardContent>
+                <Typography variant="h6">Wind Speed</Typography>
+                <Typography>{weather.current.wind_kph} kph</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item>
+            <Card className="weather-card" sx={{ minWidth: 200 }}>
+              <CardContent>
+                <Typography variant="h6">Humidity</Typography>
+                <Typography>{weather.current.humidity}%</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
       )}
     </div>
   );
