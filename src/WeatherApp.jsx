@@ -49,7 +49,7 @@ const WeatherApp = () => {
           </Grid>
         </CardContent>
       </Card>
-      {loading && <Typography mt={2}>Loading data…</Typography>}
+      {loading && <Typography mt={2}><p>Loading data…</p></Typography>}
       {weather && (
         <Grid container spacing={2} mt={3} justifyContent="center">
           <Grid item className="weather-cards">
